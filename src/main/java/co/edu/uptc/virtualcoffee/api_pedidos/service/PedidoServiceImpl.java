@@ -16,7 +16,7 @@ public class PedidoServiceImpl implements PedidoService {
     // --- 👇 2. CREA LA INSTANCIA DEL LOGGER ---
     private static final Logger log = LoggerFactory.getLogger(PedidoServiceImpl.class);
 
-    private final RestTemplate restTemplate;
+    public final RestTemplate restTemplate;
     private final String bebidasApiUrl = "http://localhost:8000/menu/";
 
     @Autowired
