@@ -51,7 +51,7 @@ jobs:
       # 5. ¡Ejecuta el Análisis de SonarCloud!
       - name: SonarCloud Scan
         run: mvn -B sonar:sonar \
-          -Dsonar.organization=Valeriatm06 \
+          -Dsonar.organization=valeriatm06 \
           -Dsonar.projectKey=Valeriatm06_api-pedidos # <-- AÑADE ESTA LÍNEA
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
