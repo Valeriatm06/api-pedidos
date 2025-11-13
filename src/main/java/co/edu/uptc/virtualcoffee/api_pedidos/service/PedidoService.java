@@ -13,4 +13,5 @@ public interface PedidoService {
     double savePedido(PedidoDTO pedidoDTO);
 
     PedidoDTO getPedidoById(Long id);
+    java.util.List<PedidoDTO> getAllPedidos();
 }

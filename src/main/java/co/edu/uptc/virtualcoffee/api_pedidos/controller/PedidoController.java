@@ -3,8 +3,13 @@ package co.edu.uptc.virtualcoffee.api_pedidos.controller;
 import co.edu.uptc.virtualcoffee.api_pedidos.dto.PedidoResponseDTO;
 import co.edu.uptc.virtualcoffee.api_pedidos.dto.PedidoDTO;
 import co.edu.uptc.virtualcoffee.api_pedidos.service.PedidoService;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/pedidos")
+@CrossOrigin(origins = "http://localhost:5173")
 public class PedidoController {
 
     private final PedidoService pedidoService;
@@ -43,4 +49,17 @@ public class PedidoController {
     public PedidoDTO getPedidoById(@PathVariable Long id) {
         return pedidoService.getPedidoById(id);
     }
+
+    @GetMapping
+    public List<PedidoDTO> getAllPedidos() {
+        return pedidoService.getAllPedidos();
+        /*List<PedidoDTO> pedidos = new ArrayList<>();
+        PedidoDTO ejemplo = new PedidoDTO();
+        ejemplo.setCustomerName("Valeria"); 
+        ejemplo.setItems(List.of("Capuccino"));
+        pedidos.add(ejemplo);
+        return pedidos;*/
+      
+    }
+
 }

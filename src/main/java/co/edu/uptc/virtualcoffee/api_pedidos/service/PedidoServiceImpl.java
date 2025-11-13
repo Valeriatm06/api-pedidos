@@ -60,4 +60,10 @@ public class PedidoServiceImpl implements PedidoService {
             throw new PedidoNotFoundException("Pedido no encontrado con ID: " + id);
         }
     }
+    @Override
+    public java.util.List<PedidoDTO> getAllPedidos() {
+        // Aquí iría la lógica para obtener todos los pedidos desde la base de datos
+        log.info("SERVICE: Obteniendo todos los pedidos");
+        return new java.util.ArrayList<>(); // Retorna una lista vacía por ahora
+    }
 }
