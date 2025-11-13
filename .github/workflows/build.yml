@@ -18,7 +18,7 @@ jobs:
       # 1. Clona tu código
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          fetch-depth: 0  # Necesario para SonarCloud
 
       # 2. Configura JDK 17
       - name: Set up JDK 17
@@ -28,15 +28,9 @@ jobs:
           distribution: 'temurin'
           cache: 'maven' # Activa el caché de Maven
 
-      # 3. ¡EL PASO ÚNICO!
-      # Ejecuta todo en una sola línea:
-      # 1. 'verify' -> Corre los tests (JUnit)
-      # 2. 'jacoco:report' -> Crea el reporte de cobertura
-      # 3. 'sonar:sonar' -> Envía todo a SonarCloud
+      # 3. ¡EL PASO ÚNICO! (Todo en una línea para evitar errores de sintaxis)
       - name: Build, Test, and Scan
-        run: mvn -B verify org.jacoco:jacoco-maven-plugin:report sonar:sonar \
-          -Dsonar.organization=valeriatm06 \
-          -Dsonar.projectKey=Valeriatm06_api-pedidos
+        run: mvn -B verify org.jacoco:jacoco-maven-plugin:report sonar:sonar -Dsonar.organization=valeriatm06 -Dsonar.projectKey=Valeriatm06_api-pedidos
         env:
           # El token que guardaste en los Secretos de GitHub
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
