@@ -3,6 +3,7 @@ package co.edu.uptc.virtualcoffee.api_pedidos.service;
 import co.edu.uptc.virtualcoffee.api_pedidos.dto.BebidaDTO;
 import co.edu.uptc.virtualcoffee.api_pedidos.dto.PedidoDTO;
 import co.edu.uptc.virtualcoffee.api_pedidos.exception.PedidoNotFoundException;
+// --- 👇 1. IMPORTA EL LOGGER (SLF4J) ---
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class PedidoServiceImpl implements PedidoService {
 
+    // --- 👇 2. CREA LA INSTANCIA DEL LOGGER ---
     private static final Logger log = LoggerFactory.getLogger(PedidoServiceImpl.class);
 
     private final RestTemplate restTemplate;
@@ -33,10 +35,12 @@ public class PedidoServiceImpl implements PedidoService {
                     totalPedido += bebida.getPrice();
                 }
             } catch (Exception e) {
+                // --- 👇 3. REEMPLAZA System.out CON log.error ---
                 log.error("Error al buscar bebida: {} - {}", itemName, e.getMessage());
             }
         }
 
+        // --- 👇 3. REEMPLAZA System.out CON log.info ---
         log.info("SERVICE: Total del pedido: {}", totalPedido);
         log.info("SERVICE: Guardando pedido para: {}", pedidoDTO.getCustomerName());
 
@@ -45,6 +49,7 @@ public class PedidoServiceImpl implements PedidoService {
 
     @Override
     public PedidoDTO getPedidoById(Long id) {
+        // --- 👇 3. REEMPLAZA System.out CON log.info ---
         log.info("SERVICE: Buscando pedido con ID: {}", id);
 
         if (id == 1L) {

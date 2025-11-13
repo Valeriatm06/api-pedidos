@@ -26,10 +26,13 @@ public class PedidoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    // 2. Ahora devuelve el DTO de respuesta
     public PedidoResponseDTO createPedido(@RequestBody PedidoDTO pedidoDTO) {
 
+        // 3. Llama al servicio y captura el total
         double total = pedidoService.savePedido(pedidoDTO);
 
+        // 4. Crea y devuelve la respuesta
         PedidoResponseDTO response = new PedidoResponseDTO();
         response.setMessage("Pedido creado exitosamente");
         response.setTotal(total);
