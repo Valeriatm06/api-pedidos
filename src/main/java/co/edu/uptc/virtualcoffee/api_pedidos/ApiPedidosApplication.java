@@ -9,6 +9,8 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 public class ApiPedidosApplication {
 
+    private ApiPedidosApplication() {
+    }
 	public static void main(String[] args) {
 
         SpringApplication.run(ApiPedidosApplication.class, args);

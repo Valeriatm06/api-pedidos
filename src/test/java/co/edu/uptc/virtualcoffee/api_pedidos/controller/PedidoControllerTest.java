@@ -67,7 +67,6 @@ class PedidoControllerTest {
     @Test
     void testGetPedidoPorId_DebeDevolverPedidoSiExiste() throws Exception {
 
-        long idExistente = 1L;
         PedidoDTO pedidoExistente = new PedidoDTO();
         pedidoExistente.setCustomerName("Valeria");
         when(pedidoService.getPedidoById(1L)).thenReturn(pedidoExistente);

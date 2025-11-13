@@ -3,15 +3,16 @@ package co.edu.uptc.virtualcoffee.api_pedidos.service;
 import co.edu.uptc.virtualcoffee.api_pedidos.dto.BebidaDTO;
 import co.edu.uptc.virtualcoffee.api_pedidos.dto.PedidoDTO;
 import co.edu.uptc.virtualcoffee.api_pedidos.exception.PedidoNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-/**
- * Implementación de la lógica de negocio de Pedidos.
- */
 @Service
 public class PedidoServiceImpl implements PedidoService {
+
+    private static final Logger log = LoggerFactory.getLogger(PedidoServiceImpl.class);
 
     private final RestTemplate restTemplate;
     private final String bebidasApiUrl = "http://localhost:8000/menu/";
@@ -22,28 +23,29 @@ public class PedidoServiceImpl implements PedidoService {
     }
 
     @Override
-    public double savePedido(PedidoDTO pedidoDTO) { // <-- 1. Cambia 'void'
-
+    public double savePedido(PedidoDTO pedidoDTO) {
         double totalPedido = 0.0;
         for (String itemName : pedidoDTO.getItems()) {
-            // ... (lógica del try/catch/getForObject) ...
+            String url = bebidasApiUrl + itemName;
             try {
-                BebidaDTO bebida = restTemplate.getForObject(bebidasApiUrl + itemName, BebidaDTO.class);
+                BebidaDTO bebida = restTemplate.getForObject(url, BebidaDTO.class);
                 if (bebida != null) {
                     totalPedido += bebida.getPrice();
                 }
             } catch (Exception e) {
-                System.out.println("Error al buscar bebida: " + itemName + " - " + e.getMessage());
+                log.error("Error al buscar bebida: {} - {}", itemName, e.getMessage());
             }
         }
-        System.out.println("SERVICE: Total del pedido: " + totalPedido);
 
-        return totalPedido; // <-- 2. Devuelve el total
+        log.info("SERVICE: Total del pedido: {}", totalPedido);
+        log.info("SERVICE: Guardando pedido para: {}", pedidoDTO.getCustomerName());
+
+        return totalPedido;
     }
 
     @Override
     public PedidoDTO getPedidoById(Long id) {
-        System.out.println("SERVICE: Buscando pedido con ID: " + id);
+        log.info("SERVICE: Buscando pedido con ID: {}", id);
 
         if (id == 1L) {
             PedidoDTO pedido = new PedidoDTO();
