@@ -49,12 +49,10 @@ jobs:
         run: mvn -B verify org.jacoco:jacoco-maven-plugin:report
 
       # 5. ¡Ejecuta el Análisis de SonarCloud!
-      # Lee el 'pom.xml' y el reporte de Jacoco, y lo envía a SonarCloud
       - name: SonarCloud Scan
         run: mvn -B sonar:sonar \
-          -Dsonar.organization=Valeriatm06
+          -Dsonar.organization=Valeriatm06 \
+          -Dsonar.projectKey=Valeriatm06_api-pedidos # <-- AÑADE ESTA LÍNEA
         env:
-          # El token que guardaste en los Secretos de GitHub
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          # El 'SONAR_TOKEN' de GitHub Actions (solo para PRs)
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
